@@ -27,11 +27,64 @@ const allTextFileNames = getAllFilesInDirectory(allTextFilesDir);
  * 1. Check all convo files
  */
 
-//TODO
+// const exampleDialogueNode = {
+//     "id":"0",
+//     "nodetype":"Dialogue",
+//     "speaker":"Emma",
+//     "contents":[
+//         "Oh good, looks like you got it booted up ok.",
+//         "Guess I should check - my messages are getting through to you, right?"
+//     ],
+//     "next":"1",
+//     "nodeposition":[-122.611999511719,574.762878417969]
+// }
+
+allConvoNames.forEach(fileName => {
+    console.log(fileName);
+
+    let convoTypos = [];
+
+    //Get the path for the file, then read its contents
+    const filePath = `${allConvosDir}\\${fileName}`
+    const fileContent = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+    //Convo files contain several types of nodes in a top-level array, but we only want the "Dialogue" ones
+    const dialogueNodes = fileContent.filter(node => node.nodetype === "Dialogue")
+
+    console.log(`has ${dialogueNodes.length} dialogue nodes.`);
+
+    //For each Dialogue node in this file, we need to scan all lines of dialogue.
+    dialogueNodes.forEach(dialogueNode => {
+        const nodeId = dialogueNode.id;
+        dialogueNode.contents.forEach(line => {
+            const arrayOfErrorIndices = Spellchecker.checkSpelling(line);
+            if(arrayOfErrorIndices){
+                arrayOfErrorIndices.forEach(errorRange => {
+                    const misspelledWord = line.substring(errorRange.start, errorRange.end);
+                    convoTypos.push({
+                        "nodeId": nodeId,
+                        "word": misspelledWord,
+                    })
+                });
+            }
+        })
+    })
+
+    //Write the data for this file under a header
+    if(convoTypos.length > 0) {
+        fs.appendFileSync(convoReportFileName, `----- ${fileName.toUpperCase()} -----\n`, 'utf-8')
+        convoTypos.forEach(typoData => {
+            const possibleCorrections = Spellchecker.getCorrectionsForMisspelling(typoData.word);
+            fs.appendFileSync(convoReportFileName, `"${typoData.word}" ----- (nodeId: ${typoData.nodeId}) Did you mean: ${possibleCorrections}?\n`, 'utf-8');
+        });
+        fs.appendFileSync(convoReportFileName, '\n\n', 'utf-8')
+    }
+})
 
 /**
  * 2. Check all article files
  */
+
 allArticleNames.forEach(fileName => {
     let articleTypos = [];
 
