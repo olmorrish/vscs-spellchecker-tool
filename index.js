@@ -1,5 +1,5 @@
 import Spellchecker from "spellchecker";
-import {getAllFilesInDirectory} from './utils.js';
+import {getAllFilesInDirectory} from './common.js';
 import fs from 'fs';
 
 const projectResourcesPath = "C:\\Users\\olive\\Documents\\Unity Projects\\VSCS-2\\Assets\\Resources";
@@ -26,22 +26,8 @@ const allTextFileNames = getAllFilesInDirectory(allTextFilesDir);
 /**
  * 1. Check all convo files
  */
-
-// const exampleDialogueNode = {
-//     "id":"0",
-//     "nodetype":"Dialogue",
-//     "speaker":"Emma",
-//     "contents":[
-//         "Oh good, looks like you got it booted up ok.",
-//         "Guess I should check - my messages are getting through to you, right?"
-//     ],
-//     "next":"1",
-//     "nodeposition":[-122.611999511719,574.762878417969]
-// }
-
+console.log("Scanning all convo files...");
 allConvoNames.forEach(fileName => {
-    console.log(fileName);
-
     let convoTypos = [];
 
     //Get the path for the file, then read its contents
@@ -50,8 +36,6 @@ allConvoNames.forEach(fileName => {
 
     //Convo files contain several types of nodes in a top-level array, but we only want the "Dialogue" ones
     const dialogueNodes = fileContent.filter(node => node.nodetype === "Dialogue")
-
-    console.log(`has ${dialogueNodes.length} dialogue nodes.`);
 
     //For each Dialogue node in this file, we need to scan all lines of dialogue.
     dialogueNodes.forEach(dialogueNode => {
@@ -84,7 +68,7 @@ allConvoNames.forEach(fileName => {
 /**
  * 2. Check all article files
  */
-
+console.log("Scanning all article files...");
 allArticleNames.forEach(fileName => {
     let articleTypos = [];
 
@@ -117,8 +101,9 @@ allArticleNames.forEach(fileName => {
 })
 
 /**
- * 3. Check all article files
+ * 3. Check all text files
  */
+console.log("Scanning all text files...");
 allTextFileNames.forEach(fileName => {
     let textFileTypos = [];
 

@@ -9,7 +9,7 @@ This tool simply takes all convo files (`.json`) and article/text files (`.md`),
 For future reference, a Dialogue node in the convo files looks like this:
 
 ```json
- const exampleDialogueNode = {
+ {
     "id":"0",
     "nodetype":"Dialogue",
     "speaker":"Emma",
