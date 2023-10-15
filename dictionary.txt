@@ -1,5 +1,6 @@
 Stultusoft
 Arbough
+Arbough's
 LunaOS
 Lunamoth
 Lunamoth's
@@ -8,6 +9,7 @@ binOX
 Xs
 Os
 Interos
+Interos's
 InterChat
 InterAct
 Fireants
@@ -20,9 +22,14 @@ colouring
 behaviour
 behaviours
 humour
-behaviour
+fervour
 F$h
+Silv
 Liferaft
 Swarm
 VSPaint
 Fsh
+labour
+rumour
+rumours
+rumoured
