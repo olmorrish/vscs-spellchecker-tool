@@ -13,6 +13,9 @@ Interos's
 InterChat
 InterAct
 Fireants
+favour
+favours
+favoured
 favourite
 favourites
 colour
@@ -23,6 +26,7 @@ behaviour
 behaviours
 humour
 fervour
+focussed
 F$h
 Silv
 Liferaft
@@ -33,3 +37,6 @@ labour
 rumour
 rumours
 rumoured
+gotta
+friendo
+mon
